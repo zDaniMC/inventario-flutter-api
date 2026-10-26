@@ -1,0 +1,19 @@
+{
+  "name": "inventario-api",
+  "version": "1.0.0",
+  "description": "API REST para la gestión de inventario de productos",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js",
+    "seed": "node src/database/seed.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "better-sqlite3": "^12.11.1",
+    "cors": "^2.8.5",
+    "express": "^4.21.2"
+  }
+}

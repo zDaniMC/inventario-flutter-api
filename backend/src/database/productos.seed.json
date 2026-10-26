@@ -1,0 +1,12 @@
+[
+  { "nombre": "Arroz Diana 500 g", "codigo": "ABR-001", "descripcion": "Arroz blanco de grano largo", "precio": 2800, "cantidad": 120, "categoria": "Abarrotes" },
+  { "nombre": "Aceite Premier 1 L", "codigo": "ABR-002", "descripcion": "Aceite vegetal de girasol", "precio": 12500, "cantidad": 45, "categoria": "Abarrotes" },
+  { "nombre": "Azúcar Manuelita 1 kg", "codigo": "ABR-003", "descripcion": "Azúcar blanca refinada", "precio": 4900, "cantidad": 80, "categoria": "Abarrotes" },
+  { "nombre": "Leche Alpina 1 L", "codigo": "LAC-001", "descripcion": "Leche entera UHT", "precio": 4600, "cantidad": 60, "categoria": "Lácteos" },
+  { "nombre": "Queso Costeño 500 g", "codigo": "LAC-002", "descripcion": "Queso fresco costeño", "precio": 11000, "cantidad": 25, "categoria": "Lácteos" },
+  { "nombre": "Gaseosa Postobón 1.5 L", "codigo": "BEB-001", "descripcion": "Gaseosa sabor manzana", "precio": 5200, "cantidad": 70, "categoria": "Bebidas" },
+  { "nombre": "Agua Cristal 600 ml", "codigo": "BEB-002", "descripcion": "Agua potable sin gas", "precio": 1800, "cantidad": 150, "categoria": "Bebidas" },
+  { "nombre": "Detergente Fab 1 kg", "codigo": "ASE-001", "descripcion": "Detergente en polvo multiusos", "precio": 13900, "cantidad": 30, "categoria": "Aseo" },
+  { "nombre": "Jabón Rey x3", "codigo": "ASE-002", "descripcion": "Jabón en barra para ropa", "precio": 7500, "cantidad": 40, "categoria": "Aseo" },
+  { "nombre": "Papas Margarita 105 g", "codigo": "SNK-001", "descripcion": "Papas fritas sabor natural", "precio": 4300, "cantidad": 90, "categoria": "Snacks" }
+]
