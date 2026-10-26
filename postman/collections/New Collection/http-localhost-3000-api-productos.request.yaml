@@ -1,0 +1,18 @@
+$kind: http-request
+name: http://localhost:3000/api/productos
+description: ""
+url: http://localhost:3000/api/productos
+method: POST
+headers:
+  Content-Type: application/json
+body:
+  type: json
+  content: |-
+    {
+      "nombre": "Café Sello Rojo 250 g",
+      "codigo": "BEB-003",
+      "categoria": "Bebidas",
+      "precio": 9800,
+      "cantidad": 20
+    }
+order: 1000
