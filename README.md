@@ -296,10 +296,8 @@ Respuesta:
 
 _Local:_ `http://localhost:3000/api/productos`
 
-_Desplegada (si aplica):_ `https://________________/api/productos`
-
 ---
 
 ## Autor
 
-Nombre: ______________________ — Código: __________
+Nombre: Jose Daniel Rivas — Código: 230232009
