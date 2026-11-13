@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../routes/app_routes.dart';
+import '../services/sesion_controller.dart';
 
 class AppDrawer extends StatelessWidget {
   const AppDrawer({super.key});
@@ -10,6 +11,7 @@ class AppDrawer extends StatelessWidget {
   Widget build(BuildContext context) {
     final rutaActual = GoRouterState.of(context).uri.path;
     final colores = Theme.of(context).colorScheme;
+    final usuario = SesionController.instance.usuario;
 
     return Drawer(
       child: Column(
@@ -24,13 +26,21 @@ class AppDrawer extends StatelessWidget {
                   child: Icon(Icons.inventory_2_rounded, color: colores.primary, size: 30),
                 ),
                 const SizedBox(width: 14),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text('InvenTrack', style: TextStyle(color: colores.onPrimary, fontSize: 22, fontWeight: FontWeight.bold)),
-                    Text('Gestión de inventario', style: TextStyle(color: colores.onPrimary.withValues(alpha: 0.85))),
-                  ],
+                Expanded(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text('InvenTrack', style: TextStyle(color: colores.onPrimary, fontSize: 22, fontWeight: FontWeight.bold)),
+                      Text('Gestión de inventario', style: TextStyle(color: colores.onPrimary.withValues(alpha: 0.85))),
+                      if (usuario != null)
+                        Text(
+                          usuario.email,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(color: colores.onPrimary.withValues(alpha: 0.85), fontSize: 12),
+                        ),
+                    ],
+                  ),
                 ),
               ],
             ),
@@ -53,6 +63,21 @@ class AppDrawer extends StatelessWidget {
             seleccionado: rutaActual == AppRoutes.nuevoProducto,
             alPresionar: () => context.go(AppRoutes.nuevoProducto),
           ),
+          _ItemMenu(
+            icono: Icons.person_rounded,
+            titulo: 'Mi sesión',
+            seleccionado: rutaActual == AppRoutes.sesion,
+            alPresionar: () => context.go(AppRoutes.sesion),
+          ),
+          const Spacer(),
+          const Divider(height: 1),
+          _ItemMenu(
+            icono: Icons.logout_rounded,
+            titulo: 'Cerrar sesión',
+            seleccionado: false,
+            alPresionar: () => SesionController.instance.logout(),
+          ),
+          const SizedBox(height: 8),
         ],
       ),
     );

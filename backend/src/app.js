@@ -1,6 +1,8 @@
 const express = require('express');
 const cors = require('cors');
+const authRoutes = require('./routes/auth.routes');
 const productosRoutes = require('./routes/productos.routes');
+const verificarToken = require('./middleware/auth.middleware');
 
 const app = express();
 
@@ -8,10 +10,14 @@ app.use(cors());
 app.use(express.json());
 
 app.get('/', (req, res) => {
-  res.json({ mensaje: 'API de Inventario funcionando', endpoints: '/api/productos' });
+  res.json({ mensaje: 'API de Inventario funcionando', endpoints: '/api/auth/login, /api/productos' });
 });
 
-app.use('/api/productos', productosRoutes);
+// Público: inicio de sesión
+app.use('/api/auth', authRoutes);
+
+// Protegido: todas las rutas de productos exigen un JWT válido
+app.use('/api/productos', verificarToken, productosRoutes);
 
 app.use((req, res) => {
   res.status(404).json({ mensaje: 'Ruta no encontrada' });
