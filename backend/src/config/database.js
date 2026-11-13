@@ -1,6 +1,7 @@
 const path = require('path');
 const fs = require('fs');
 const Database = require('better-sqlite3');
+const bcrypt = require('bcryptjs');
 const productosSemilla = require('../database/productos.seed.json');
 
 const rutaDb = process.env.DB_PATH || path.join(__dirname, '..', '..', 'data', 'inventario.db');
@@ -36,13 +37,43 @@ function insertarSemilla() {
   insertarTodos(productosSemilla);
 }
 
+// --- Autenticación ---------------------------------------------------------
+
+function crearTablaUsuarios() {
+  db.exec(`
+    CREATE TABLE IF NOT EXISTS usuarios (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      nombre TEXT NOT NULL,
+      email TEXT NOT NULL UNIQUE,
+      password_hash TEXT NOT NULL,
+      created_at TEXT DEFAULT CURRENT_TIMESTAMP
+    )
+  `);
+}
+
+// Crea un usuario de pruebas solo si no existe ninguno. La contraseña se guarda con bcrypt.
+function crearUsuarioInicial() {
+  const { total } = db.prepare('SELECT COUNT(*) AS total FROM usuarios').get();
+  if (total > 0) return;
+
+  const nombre = process.env.ADMIN_NOMBRE || 'Administrador';
+  const email = (process.env.ADMIN_EMAIL || 'admin@inventrack.com').toLowerCase();
+  const password = process.env.ADMIN_PASSWORD || 'Admin1234';
+
+  db.prepare('INSERT INTO usuarios (nombre, email, password_hash) VALUES (?, ?, ?)')
+    .run(nombre, email, bcrypt.hashSync(password, 10));
+  console.log(`Usuario inicial creado: ${email}`);
+}
+
 function inicializarBaseDatos() {
   crearTabla();
+  crearTablaUsuarios();
   const { total } = db.prepare('SELECT COUNT(*) AS total FROM productos').get();
   if (total === 0) {
     insertarSemilla();
     console.log(`Base de datos creada con ${productosSemilla.length} productos de prueba`);
   }
+  crearUsuarioInicial();
 }
 
 module.exports = { db, inicializarBaseDatos, crearTabla, insertarSemilla };
